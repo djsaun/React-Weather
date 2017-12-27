@@ -5,38 +5,44 @@ import Widget from './Widget';
 import axios from 'axios';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.updateLocation = this.updateLocation.bind(this);
-    this.fetchLocationData = this.fetchLocationData.bind(this);
+  constructor(props) {
+    super(props);
 
     this.state = {
-      location: ''
+      location: '',
+      weather: '',
+      temp: 0,
+      humidity: 0,
+      wind: 0
     }
-  }
 
-  updateLocation(locationName) {
+    this.fetchLocationData = this.fetchLocationData.bind(this);
+  }
+  
+  async fetchLocationData(locationName) {
     let location = this.state.location;
     location = locationName;
-    this.setState({location});
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${locationName},us&mode=json&appid=c633227f66282756bc670cd695388091`
-    const response = axios.get(url);
-    console.log(response);
-  }
+    
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${location},us&mode=json&appid=c633227f66282756bc670cd695388091`
+    const response = await axios.get(url).then(function (response) {
+      return response.data;
+    });
 
-  fetchLocationData(cityName) {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName},us&mode=xml&appid=c633227f66282756bc670cd695388091`
-    const response = axios.get(url);
-    console.log(response);
+    this.setState({
+      location,
+      weather: response.weather[0].main,
+      temp: response.main.temp,
+      humidity: response.main.humidity,
+      wind: response.wind.speed
+    })
   }
 
   render() {
     return (
       <div className="App">
         <h1 className="App-title">Weather</h1>
-        <LocationForm updateLocation={this.updateLocation} />
-        <Widget location={this.state.location} fetchLocationData={this.fetchLocationData} />
+        <LocationForm fetchLocationData={this.fetchLocationData} />
+        <Widget location={this.state.location} />
       </div>
     );
   }

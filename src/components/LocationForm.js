@@ -4,7 +4,7 @@ class LocationForm extends Component {
   getWeather(event) {
     event.preventDefault();
     const locationValue = this.location.value;
-    this.props.updateLocation(locationValue);
+    this.props.fetchLocationData(locationValue);
   }
 
   render() {

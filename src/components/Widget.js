@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 class Widget extends Component {
   render() {
+    let test = '';
+    
     return (
-      <p>{this.props.location}</p>
+      <p>{test}</p>
     )
   }
 }
