@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Widget extends Component {
   render() {
     return (
-      <p>Hey</p>
+      <p>{this.props.location}</p>
     )
   }
 }

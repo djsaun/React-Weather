@@ -36,7 +36,7 @@ class App extends Component {
       <div className="App">
         <h1 className="App-title">Weather</h1>
         <LocationForm updateLocation={this.updateLocation} />
-        <Widget fetchLocationData={this.fetchLocationData} />
+        <Widget location={this.state.location} fetchLocationData={this.fetchLocationData} />
       </div>
     );
   }
