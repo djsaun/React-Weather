@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../styles/App.css';
+import LocationForm from './LocationForm';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.updateLocation = this.updateLocation.bind(this);
+
+    this.state = {
+      location: ''
+    }
+  }
+
+  updateLocation(locationName) {
+    let location = this.state.location;
+    location = locationName;
+    this.setState({location});
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Weather</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1 className="App-title">Weather</h1>
+        <LocationForm updateLocation={this.updateLocation} />
       </div>
     );
   }
