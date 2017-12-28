@@ -10,7 +10,7 @@ class LocationForm extends Component {
   render() {
     return (
       <form className="location-form" onSubmit={(e) => this.getWeather(e)}>
-        <input ref={(input) => this.location = input} type="text" placeholder="Enter location name" />
+        <input ref={(input) => this.location = input} type="text" placeholder="Enter location name" required />
       </form>
     )
   }
