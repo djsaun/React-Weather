@@ -18,9 +18,17 @@ class App extends Component {
     }
 
     this.fetchLocationData = this.fetchLocationData.bind(this);
+    this.updateUnitPreference = this.updateUnitPreference.bind(this);
   }
   
-  async fetchLocationData(locationName) {
+  updateUnitPreference(e) {
+    const unitPref = e.target.value;
+    this.setState({
+      unitPreference: unitPref
+    })
+  }
+
+  async fetchLocationData(locationName, unitPreference) {
     // const initialLocation = this.state.location;
     // const initialWeather = this.state.weather;
     // const initialTemp = this.state.temp;
@@ -28,7 +36,7 @@ class App extends Component {
     // const initialWind = this.state.initialWind; 
     
     if (locationName) {
-      // const unit = if (this.state.unitPreference)
+      console.log(this.state.unitPreference)
       const unit = ((this.state.unitPreference === 'F') ? 'imperial' : 'metric');
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=c633227f66282756bc670cd695388091`
       const response = await axios.get(url).then(function (response) {
@@ -50,7 +58,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="App-title">Weather</h1>
-        <LocationForm fetchLocationData={this.fetchLocationData} />
+        <LocationForm fetchLocationData={this.fetchLocationData} updateUnitPreference={this.updateUnitPreference} unit={this.state.unitPreference} />
         <Widget weather={this.state} />
       </div>
     );

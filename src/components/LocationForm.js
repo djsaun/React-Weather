@@ -5,13 +5,17 @@ class LocationForm extends Component {
   getWeather(event) {
     event.preventDefault();
     const locationValue = this.location.value;
-    this.props.fetchLocationData(locationValue);
+    const unitPreference = this.unit.value;
+
+    this.props.fetchLocationData(locationValue, unitPreference);
   }
 
   render() {
     return (
       <form className="location-form" onSubmit={(e) => this.getWeather(e)}>
         <input ref={(input) => this.location = input} type="text" placeholder="Enter location name" required />
+        <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="F" defaultChecked /> F
+        <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="C" /> C
       </form>
     )
   }
