@@ -36,9 +36,9 @@ class App extends Component {
     // const initialWind = this.state.initialWind; 
     
     if (locationName) {
-      console.log(this.state.unitPreference)
-      const unit = ((this.state.unitPreference === 'F') ? 'imperial' : 'metric');
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=c633227f66282756bc670cd695388091`
+      console.log(this.state.unitPreference, unitPreference = this.state.unitPreference)
+      const unit = ((unitPreference === 'F') ? 'imperial' : 'metric');
+      const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=d35f5926100d562479f675ff0039ae32`
       const response = await axios.get(url).then(function (response) {
         console.log(response.data);
         return response.data;
@@ -51,6 +51,12 @@ class App extends Component {
         humidity: response.main.humidity,
         wind: response.wind.speed
       });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.unitPreference !== nextState.unitPreference) {
+      this.fetchLocationData(nextState.location, nextState.unitPreference);
     }
   }
 
