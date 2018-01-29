@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class LocationForm extends Component {
+
   getWeather(event) {
     event.preventDefault();
     const locationValue = this.location.value;

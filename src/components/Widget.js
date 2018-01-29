@@ -6,9 +6,12 @@ class Widget extends Component {
 
     if (location) {
       return (
-        <div>
+        <div className="city-details">
           <p>{location}</p>
           <p>It is currently {temp}°</p>
+          <p>It is currently {weather}</p>
+          <p>The humidity is {humidity}</p>
+          <p>The wind is {wind}</p>
         </div>
       )
     } else {
