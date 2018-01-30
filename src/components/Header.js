@@ -13,8 +13,10 @@ class Header extends Component {
 
     return (
       <div className="location-header" style={mapStyle}>
-        <h1>Weather</h1>
-        <LocationForm fetchLocationData={this.props.fetchLocationData} updateUnitPreference={this.props.updateUnitPreference} getPlace={this.props.getPlace} unit={this.props.unit} displayName={this.props.displayName} />
+        <div className="header-content">
+          <h1>Weather</h1>
+          <LocationForm fetchLocationData={this.props.fetchLocationData} updateUnitPreference={this.props.updateUnitPreference} getPlace={this.props.getPlace} unit={this.props.unit} displayName={this.props.displayName} />
+        </div>
       </div>
     )
   }

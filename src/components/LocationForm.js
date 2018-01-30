@@ -14,13 +14,11 @@ class LocationForm extends Component {
   render() {
     
     return (
-      <div className="location-header">
-        <form className="location-form" onSubmit={(e) => this.getWeather(e)}>
-          <input ref={(input) => this.location = input} type="text" placeholder="Enter location name" required />
-          <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="F" defaultChecked /> F
-          <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="C" /> C
-        </form>
-      </div>
+      <form className="location-form" onSubmit={(e) => this.getWeather(e)}>
+        <input ref={(input) => this.location = input} type="text" placeholder="Enter location name" required />
+        <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="F" defaultChecked /> F
+        <input ref={(input) => this.unit = input} onChange={this.props.updateUnitPreference} name="unit" type="radio" value="C" /> C
+      </form>
     )
   }
 }
