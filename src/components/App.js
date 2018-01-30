@@ -11,7 +11,6 @@ class App extends Component {
     this.state = {
       location: '',
       displayName: '',
-      placeID: '',
       weather: '',
       temp: null,
       humidity: null,
@@ -50,18 +49,24 @@ class App extends Component {
     }
   }
 
- async getPlaceId(locationName) {
-  const locationDetails = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=${process.env.REACT_APP_GOOGLE_API}`)
-  .then(function(res) {
-    console.log(res.data);
-    return res.data;
-  })
+  async getPlaceId(locationName) {
+    const locationDetails = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=${process.env.REACT_APP_GOOGLE_API}`)
+    .then(function(res) {
+      return res.data;
+    })
 
-  this.setState({
-    displayName: locationDetails.results[0].formatted_address,
-    placeID: locationDetails.results[0].place_id
-  })
- } 
+    this.setState({
+      displayName: locationDetails.results[0].formatted_address,
+    })
+  } 
+
+  getPlaceMap(placeID) {
+    const place = `https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&key=${process.env.REACT_APP_STATIC_MAP_API}`
+
+    this.setState({
+      map: place
+    })
+  }
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.unitPreference !== nextState.unitPreference) {
