@@ -20,6 +20,7 @@ class App extends Component {
     }
 
     this.fetchLocationData = this.fetchLocationData.bind(this);
+    this.getPlaceId = this.getPlaceId.bind(this);
     this.updateUnitPreference = this.updateUnitPreference.bind(this);
   }
   
@@ -39,18 +40,8 @@ class App extends Component {
         return response.data;
       });
 
-      const getCoordinates = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=${process.env.REACT_APP_GOOGLE_API}`)
-      .then(function(res) {
-        console.log(res.data);
-        return res.data;
-      })
-
-      console.log(getCoordinates.results[0].formatted_address);
-
       this.setState({
         location: locationName,
-        displayName: getCoordinates.results[0].formatted_address,
-        placeID: getCoordinates.results[0].place_id,
         weather: response.weather[0].main,
         temp: response.main.temp,
         humidity: response.main.humidity,
@@ -58,6 +49,19 @@ class App extends Component {
       });
     }
   }
+
+ async getPlaceId(locationName) {
+  const locationDetails = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=${process.env.REACT_APP_GOOGLE_API}`)
+  .then(function(res) {
+    console.log(res.data);
+    return res.data;
+  })
+
+  this.setState({
+    displayName: locationDetails.results[0].formatted_address,
+    placeID: locationDetails.results[0].place_id
+  })
+ } 
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.unitPreference !== nextState.unitPreference) {
@@ -69,7 +73,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="App-title">Weather</h1>
-        <LocationForm fetchLocationData={this.fetchLocationData} updateUnitPreference={this.updateUnitPreference} unit={this.state.unitPreference} />
+        <LocationForm fetchLocationData={this.fetchLocationData} updateUnitPreference={this.updateUnitPreference} getPlaceId={this.getPlaceId} unit={this.state.unitPreference} />
         <Widget weather={this.state} />
       </div>
     );

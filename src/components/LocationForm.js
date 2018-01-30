@@ -8,6 +8,7 @@ class LocationForm extends Component {
     const unitPreference = this.props.unit || this.unit.value;
 
     this.props.fetchLocationData(locationValue, unitPreference);
+    this.props.getPlaceId(locationValue);
   }
 
   render() {
