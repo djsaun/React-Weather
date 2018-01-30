@@ -2,11 +2,6 @@ body {
   background: lightblue;
 }
 
-.city-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
 .location-header {
   position: relative;
   height: 200px;
@@ -28,6 +23,102 @@ body {
 
   .header-content {
     position: relative;
+    padding: 25px;
     z-index: 1;
   }
+}
+
+form {
+  position: relative;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // grid-gap: 20px;
+  
+  .input-toggle {
+    position: relative;
+    width: 18rem;
+    height: 3rem;
+    margin: 0 auto;
+    font-size: 0;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: inline-block;
+    font-size: 1.5rem;
+    line-height: 3rem;
+    color: #fff;
+    width: 6rem;
+    opacity: 1;
+    cursor: default;
+    transition: all .25s ease;
+
+    &:last-of-type {
+      margin-left: 6rem;
+    }
+  }
+
+  input[type=radio] {
+    position: absolute;
+    top: 0;
+    left: 6rem;
+    margin: 0;
+    height: 3rem;
+    width: 6rem;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked {
+      z-index: 1;
+
+      ~ .outside-toggle {
+        .inside-toggle {
+          left: 0.25rem;
+        }
+      }
+    }
+
+    &:not(:checked) {
+      + label {
+        cursor: pointer;
+        opacity: .5;
+      }
+    }
+
+    ~ input:checked {      
+      ~ .outside-toggle {
+        .inside-toggle {
+          left: 3.25rem;
+        }
+      }
+    }
+  }
+
+  .outside-toggle {
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    background: #fff;
+    width: 6rem;
+    height: 100%;
+    border-radius: 2rem;
+    padding: .25rem;
+    overflow: hidden;
+    transition: .25s ease all;
+
+    .inside-toggle {
+      position: absolute;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 5rem;
+      background: #4a4a4a;
+      transition: .25s ease all;
+    }
+  }
+}
+
+.city-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
