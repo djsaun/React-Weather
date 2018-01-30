@@ -10,6 +10,8 @@ class App extends Component {
 
     this.state = {
       location: '',
+      displayName: '',
+      placeID: '',
       weather: '',
       temp: null,
       humidity: null,
@@ -29,14 +31,6 @@ class App extends Component {
   }
 
   async fetchLocationData(locationName, unitPreference = this.state.unitPreference) {
-    // const initialLocation = this.state.location;
-    // const initialWeather = this.state.weather;
-    // const initialTemp = this.state.temp;
-    // const initialHumidity = this.state.humidity;
-    // const initialWind = this.state.initialWind; 
-
-    console.log(unitPreference)
-    
     if (locationName) {
       const unit = ((unitPreference === 'F') ? 'imperial' : 'metric');
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=${process.env.REACT_APP_WEATHER_API}`
@@ -45,8 +39,18 @@ class App extends Component {
         return response.data;
       });
 
+      const getCoordinates = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=${process.env.REACT_APP_GOOGLE_API}`)
+      .then(function(res) {
+        console.log(res.data);
+        return res.data;
+      })
+
+      console.log(getCoordinates.results[0].formatted_address);
+
       this.setState({
         location: locationName,
+        displayName: getCoordinates.results[0].formatted_address,
+        placeID: getCoordinates.results[0].place_id,
         weather: response.weather[0].main,
         temp: response.main.temp,
         humidity: response.main.humidity,

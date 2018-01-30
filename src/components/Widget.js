@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 class Widget extends Component {  
   render() {
-    const {location, weather, temp, humidity, wind} = this.props.weather; 
+    const {location, displayName, weather, temp, humidity, wind} = this.props.weather; 
 
     if (location) {
       return (
         <div className="city-details">
-          <p>{location}</p>
+          <p>{displayName}</p>
           <div className="wind">
             <p>The wind is {wind}</p>
           </div>
