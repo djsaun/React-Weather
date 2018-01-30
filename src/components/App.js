@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
-import LocationForm from './LocationForm';
+import Header from './Header';
 import Widget from './Widget';
 import axios from 'axios';
 
@@ -33,15 +33,15 @@ class App extends Component {
   }
 
   getMap(displayName) {
-    // console.log(displayName)
-    const map = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(displayName)}&zoom=13&size=600x300&maptype=roadmap&key=${process.env.REACT_APP_STATIC_MAP_API}`;
-    console.log(map);
+    const map = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(displayName)}&zoom=11&size=1200x400&maptype=roadmap&key=${process.env.REACT_APP_STATIC_MAP_API}`;
+    
     this.setState({
       map
     });
   }
 
   async fetchLocationData(locationName, unitPreference = this.state.unitPreference) {
+    // console.log(this.state.unitPreference)
     if (locationName) {
       const unit = ((unitPreference === 'F') ? 'imperial' : 'metric');
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=${process.env.REACT_APP_WEATHER_API}`
@@ -83,8 +83,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="App-title">Weather</h1>
-        <LocationForm fetchLocationData={this.fetchLocationData} updateUnitPreference={this.updateUnitPreference} getPlace={this.getPlace} getMap={this.getMap} unit={this.state.unitPreference} displayName={this.state.displayName} map={this.state.map} />
+        <Header fetchLocationData={this.fetchLocationData} updateUnitPreference={this.updateUnitPreference} getPlace={this.getPlace} unit={this.state.unitPreference} displayName={this.state.displayName} map={this.state.map} />
         <Widget weather={this.state} />
       </div>
     );
