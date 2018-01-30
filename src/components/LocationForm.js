@@ -5,7 +5,7 @@ class LocationForm extends Component {
   getWeather(event) {
     event.preventDefault();
     const locationValue = this.location.value;
-    const unitPreference = this.unit.value;
+    const unitPreference = this.props.unit || this.unit.value;
 
     this.props.fetchLocationData(locationValue, unitPreference);
   }

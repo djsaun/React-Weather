@@ -28,17 +28,18 @@ class App extends Component {
     })
   }
 
-  async fetchLocationData(locationName, unitPreference) {
+  async fetchLocationData(locationName, unitPreference = this.state.unitPreference) {
     // const initialLocation = this.state.location;
     // const initialWeather = this.state.weather;
     // const initialTemp = this.state.temp;
     // const initialHumidity = this.state.humidity;
     // const initialWind = this.state.initialWind; 
+
+    console.log(unitPreference)
     
     if (locationName) {
-      console.log(this.state.unitPreference, unitPreference = this.state.unitPreference)
       const unit = ((unitPreference === 'F') ? 'imperial' : 'metric');
-      const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=d35f5926100d562479f675ff0039ae32`
+      const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=${process.env.REACT_APP_WEATHER_API}`
       const response = await axios.get(url).then(function (response) {
         console.log(response.data);
         return response.data;
