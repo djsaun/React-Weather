@@ -1,6 +1,5 @@
-body {
-  background: lightblue;
-}
+@import './_typography.css';
+@import './weather-icons-wind.css;
 
 .location-header {
   position: relative;
@@ -120,5 +119,19 @@ form {
 
 .city-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+
+  .conditions {
+    grid-column: 1 / -1;
+
+    .high-low {
+      .high {
+        color: orange;
+      }
+
+      .low {
+        color: lightblue;
+      }
+    }
+  }
 }

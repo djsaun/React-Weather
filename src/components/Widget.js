@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Widget extends Component {  
   render() {
-    const {location, weather, temp, humidity, wind, windDeg, unitPreference} = this.props.weather;
+    const {location, weather, temp, maxTemp, minTemp, humidity, wind, windDeg, unitPreference} = this.props.weather;
 
     const windSpeed = ((unitPreference === 'F') ? 'mph' : 'mps');
     let windDirection = '';
@@ -35,12 +35,24 @@ class Widget extends Component {
     if (location) {
       return (
         <div className="city-details">
+          <div className="conditions">
+            <div className="icon">
+              Icon goes here
+            </div>
+            <div className="temperature">
+              <h3>{temp}°</h3>
+              <div className="high-low">
+                <div className="high">{maxTemp}°</div>
+                <div className="low">{minTemp}°</div>
+              </div>
+            </div>
+          </div>
           <div className="wind">
             <p>The wind is {wind} {windSpeed} {windDirection}</p>
           </div>
-          <p>It is currently {temp}° {unitPreference}</p>
-          <p>It is currently {weather}</p>
-          <p>The humidity is {humidity}%</p>
+          <div className="humidity">
+            <p>The humidity is {humidity}%</p>
+          </div>
         </div>
       )
     } else {

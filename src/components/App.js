@@ -14,6 +14,8 @@ class App extends Component {
       weather: '',
       map: '',
       temp: null,
+      maxTemp: null,
+      minTemp: null,
       humidity: null,
       wind: null,
       windDeg: null,
@@ -57,6 +59,8 @@ class App extends Component {
         location: locationName,
         weather: response.weather[0].main,
         temp: response.main.temp,
+        maxTemp: response.main.temp_max,
+        minTemp: response.main.temp_min,
         humidity: response.main.humidity,
         wind: response.wind.speed,
         windDeg: response.wind.deg
