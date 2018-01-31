@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      location: '',
+      location: 'Austin, TX',
       displayName: '',
       weather: '',
       map: '',
@@ -33,15 +33,16 @@ class App extends Component {
   }
 
   getMap(displayName) {
-    const map = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(displayName)}&zoom=11&size=1200x400&maptype=roadmap&key=${process.env.REACT_APP_STATIC_MAP_API}`;
+    const map = `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(displayName)}&zoom=11&size=1200x400&maptype=satellite&key=${process.env.REACT_APP_STATIC_MAP_API}`;
     
     this.setState({
       map
     });
   }
 
-  async fetchLocationData(locationName, unitPreference = this.state.unitPreference) {
+  async fetchLocationData(locationName = this.state.location, unitPreference = this.state.unitPreference) {
     // console.log(this.state.unitPreference)
+    
     if (locationName) {
       const unit = ((unitPreference === 'F') ? 'imperial' : 'metric');
       const url = `http://api.openweathermap.org/data/2.5/weather?q=${locationName},us&units=${unit}&mode=json&appid=${process.env.REACT_APP_WEATHER_API}`
@@ -69,6 +70,11 @@ class App extends Component {
       displayName: locationDetails.results[0].formatted_address,
     })
   } 
+
+  componentWillMount() {
+    this.fetchLocationData();
+    this.getPlace(this.state.location);
+  }
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.unitPreference !== nextState.unitPreference) {
