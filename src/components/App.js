@@ -16,6 +16,7 @@ class App extends Component {
       temp: null,
       humidity: null,
       wind: null,
+      windDeg: null,
       unitPreference: 'F'
     }
 
@@ -50,12 +51,15 @@ class App extends Component {
         return response.data;
       });
 
+      console.log(response);
+
       this.setState({
         location: locationName,
         weather: response.weather[0].main,
         temp: response.main.temp,
         humidity: response.main.humidity,
-        wind: response.wind.speed
+        wind: response.wind.speed,
+        windDeg: response.wind.deg
       });
     }
   }
