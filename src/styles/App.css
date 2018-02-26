@@ -43,8 +43,15 @@
   .conditions {
     // grid-column: 1 / -1;
 
+    .temperature {
+      > p {
+        margin-bottom: 10px;
+      }
+    }
+
     .high-low {
       .high {
+        margin-bottom: 10px;
         color: orange;
       }
 

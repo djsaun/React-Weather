@@ -43,10 +43,11 @@ class Widget extends Component {
 
             </div>
             <div className="temperature">
-              <h3>{temp}°</h3>
+              <p>Current Temperature:</p>
+              <h3>{temp}° {unitPreference}</h3>
               <div className="high-low">
-                <div className="high">{maxTemp}°</div>
-                <div className="low">{minTemp}°</div>
+                <div className="high">Max: {maxTemp}° {unitPreference}</div>
+                <div className="low">Min: {minTemp}° {unitPreference}</div>
               </div>
             </div>
           </div>

@@ -53,8 +53,6 @@ class App extends Component {
         return response.data;
       });
 
-      console.log(response);
-
       this.setState({
         location: locationName,
         weather: response.weather[0].main,
